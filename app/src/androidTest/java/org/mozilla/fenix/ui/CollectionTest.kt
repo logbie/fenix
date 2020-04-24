@@ -20,6 +20,7 @@ import org.mozilla.fenix.helpers.TestAssetHelper
 import org.mozilla.fenix.ui.robots.homeScreen
 import org.mozilla.fenix.ui.robots.navigationToolbar
 
+
 /**
  *  Tests for verifying basic functionality of tab collection
  *
@@ -125,7 +126,6 @@ class CollectionTest {
         }.enterURLAndEnterToBrowser(firstWebPage.url) {
             verifyPageContent(firstWebPage.content)
         }.openThreeDotMenu {
-            // click save to collection menu item, type collection name
             clickBrowserViewSaveCollectionButton()
             if (!firstCollection)
                 clickAddNewCollection()

@@ -29,7 +29,6 @@ import androidx.test.uiautomator.By.text
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiScrollable
 import androidx.test.uiautomator.UiSelector
-import androidx.test.uiautomator.Until
 import androidx.test.uiautomator.Until.findObject
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.containsString
@@ -125,26 +124,26 @@ class HomeScreenRobot {
     // Collections element
     fun clickCollectionThreeDotButton() {
         collectionThreeDotButton().click()
-        mDevice.waitNotNull(Until.findObject(By.text("Delete collection")), waitingTime)
+        mDevice.waitNotNull(findObject(By.text("Delete collection")), waitingTime)
     }
 
     fun selectRenameCollection() {
-        onView(allOf(ViewMatchers.withText("Rename collection"))).click()
-        mDevice.waitNotNull(Until.findObject(By.res("name_collection_edittext")))
+        onView(allOf(withText("Rename collection"))).click()
+        mDevice.waitNotNull(findObject(By.res("name_collection_edittext")))
     }
 
     fun selectDeleteCollection() {
-        onView(allOf(ViewMatchers.withText("Delete collection"))).click()
-        mDevice.waitNotNull(Until.findObject(By.res("message")), waitingTime)
+        onView(allOf(withText("Delete collection"))).click()
+        mDevice.waitNotNull(findObject(By.res("message")), waitingTime)
     }
 
     fun confirmDeleteCollection() {
-        onView(allOf(ViewMatchers.withText("DELETE"))).click()
-        mDevice.waitNotNull(Until.findObject(By.res("collections_header")), waitingTime)
+        onView(allOf(withText("DELETE"))).click()
+        mDevice.waitNotNull(findObject(By.res("collections_header")), waitingTime)
     }
 
     fun typeCollectionName(name: String) {
-        mDevice.wait(Until.findObject(By.res("name_collection_edittext")), waitingTime)
+        mDevice.wait(findObject(By.res("name_collection_edittext")), waitingTime)
         collectionNameTextField().perform(ViewActions.replaceText(name))
         collectionNameTextField().perform(ViewActions.pressImeActionButton())
     }
@@ -164,10 +163,6 @@ class HomeScreenRobot {
         val appView = UiScrollable(UiSelector().scrollable(true))
         appView.scrollTextIntoView(text)
         return appView
-    }
-
-    fun swipeUpToDismissFirstRun() {
-        scrollToElementByText("Start browsing")
     }
 
     fun closeTab() {
@@ -194,7 +189,7 @@ class HomeScreenRobot {
 
     fun verifySnackBarText(expectedText: String) {
         val mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
-        mDevice.waitNotNull(Until.findObject(By.text(expectedText)), TestAssetHelper.waitingTime)
+        mDevice.waitNotNull(findObject(By.text(expectedText)), TestAssetHelper.waitingTime)
     }
 
     fun snackBarButtonClick(expectedText: String) {
@@ -237,10 +232,6 @@ class HomeScreenRobot {
 
         fun dismissOnboarding() {
             openThreeDotMenu { }.openSettings { }.goBack { }
-        }
-
-        fun addNewTab() {
-            openSearch { }.openBrowser { }.openHomeScreen { }
         }
 
         fun togglePrivateBrowsingMode() {
@@ -639,11 +630,11 @@ private fun assertTopSiteContextMenuItems() {
     val mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
     mDevice.waitNotNull(
-        Until.findObject(By.text("Open in private tab")),
+        findObject(By.text("Open in private tab")),
         waitingTime
     )
     mDevice.waitNotNull(
-        Until.findObject(By.text("Remove")),
+        findObject(By.text("Remove")),
         waitingTime
     )
 }
