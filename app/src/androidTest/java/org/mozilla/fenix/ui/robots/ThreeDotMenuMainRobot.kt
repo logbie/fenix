@@ -26,8 +26,10 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
+import org.hamcrest.CoreMatchers
 import org.hamcrest.Matchers.allOf
 import org.mozilla.fenix.R
+import org.mozilla.fenix.helpers.TestAssetHelper
 import org.mozilla.fenix.helpers.TestAssetHelper.waitingTime
 import org.mozilla.fenix.helpers.click
 import org.mozilla.fenix.helpers.ext.waitNotNull
@@ -241,6 +243,16 @@ class ThreeDotMenuMainRobot {
             AddToHomeScreenRobot().interact()
             return AddToHomeScreenRobot.Transition()
         }
+
+        fun selectExistingCollection(title: String, interact: BrowserRobot.() -> Unit): BrowserRobot.Transition {
+            org.mozilla.fenix.ui.robots.mDevice.wait(
+                Until.findObject(By.text("testcollection_1")),
+                waitingTime)
+            onView(withText(title)).click()
+
+            BrowserRobot().interact()
+            return BrowserRobot.Transition()
+        }
     }
 }
 
@@ -370,3 +382,4 @@ private fun assertAddToFirefoxHome() {
             )
         ).check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
 }
+

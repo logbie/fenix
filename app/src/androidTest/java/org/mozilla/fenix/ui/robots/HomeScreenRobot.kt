@@ -149,6 +149,17 @@ class HomeScreenRobot {
         collectionNameTextField().perform(ViewActions.pressImeActionButton())
     }
 
+    fun verifyCollectionIsDisplayed(title: String) {
+        mDevice.wait(findObject(text("renamed_collection")), waitingTime)
+        collectionTitle(title).check(matches(isDisplayed()))
+    }
+
+    fun expandCollection(title: String) = collectionTitle(title).click()
+
+    fun verifyItemInCollectionExists(title: String) =
+        onView(allOf(withId(R.id.list_element_title), withText(title)))
+            .check(matches(isDisplayed()))
+
     fun scrollToElementByText(text: String): UiScrollable {
         val appView = UiScrollable(UiSelector().scrollable(true))
         appView.scrollTextIntoView(text)
@@ -595,6 +606,9 @@ private fun collectionThreeDotButton() =
 
 private fun collectionNameTextField() =
     onView(allOf(ViewMatchers.withResourceName("name_collection_edittext")))
+
+private fun collectionTitle(title: String) =
+    onView(allOf(withId(R.id.collection_title), withText(title)))
 
 private fun closeTabViaX(title: String) {
     val closeButton = onView(
